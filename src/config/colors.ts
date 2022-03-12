@@ -1,0 +1,26 @@
+export default {
+    primary: "#004A92",
+    secondary: "#EA5700",
+
+    white: "#FFFFFF",
+    black: "#000000",
+    yellow: "#FFBD4A",
+    blue: "#3B5998",
+    red: "#DD3333",
+    green: "#608B2F",
+    backgroundColor: "#E5E5E5",
+    tabInActiveColor : "#95BDFA",
+    statusBar : "#079893",
+    editTxt : "#F7F9FB",
+    dueToday : "#1E5FCC",
+    pending : "#F2CF15",
+    overdue : "#F28D15",
+    pastOverdue : "#D2691E",
+    defaulted : "#EB6575",
+    textLight : "#9CA0A5",
+    commonBtn : "#2A7BF4",
+    lightTxt : "#AFB2B6",
+    completeAsset : "#49CB66",
+    cardBorder : "#d9e2ed",
+
+};
