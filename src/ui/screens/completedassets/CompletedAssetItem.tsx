@@ -75,7 +75,7 @@ export const CompletedAssetItem = React.memo<Props>((props) =>
                 </View>
                 <View style={{marginTop:3}}>
                     <DiffColorTxt2
-                        lightTxt={completeAssetItemString.completeAssetTotalPayment + " : "}
+                        lightTxt={completeAssetItemString.completeAssetTotalPayment2 + " : "}
                         darkTxt={completeAssetItem.total_payments.toString()}/>
                 </View>
             </View>

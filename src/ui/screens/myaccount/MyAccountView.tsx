@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, ToastAndroid, View} from 'react-native';
+import {SafeAreaView,StyleSheet,View} from 'react-native';
 import colors from '../../../config/colors';
 import {BackBtnHeader} from '../../components/headers/BackBtnHeader';
 // @ts-ignore
@@ -12,6 +12,7 @@ import {userResObj} from '../../../models/api_response/MyAccountResModel';
 import {InputText} from '../../components/InputText';
 import { AppButton } from '../../components/AppButton';
 import {ProgressBar} from '../../components/ProgressBar';
+import NumberFormat from '../../../utils/NumberFormat';
 
 type Props = {
     myAccountData : userResObj | undefined,
@@ -22,23 +23,6 @@ type Props = {
 
 export const MyAccountView = React.memo<Props>((props) =>
 {
-    const numberFormat = (value: number) =>
-    {
-        if(value !== null)
-        {
-            const re = '\\d(?=(\\d{' + 3 + '})+' + '\\D' + ')';
-            // @ts-ignore
-            const num = value.toFixed(Math.max(0, ~~2));
-            const str = num.replace(new RegExp(re, 'g'), '$&' + ',');
-            return str;
-        }
-        else
-        {
-            return "0.00";
-        }
-
-    }
-
     return(
         <SafeAreaView style={styles.myAccountMainCont}>
             <BackBtnHeader
@@ -64,7 +48,7 @@ export const MyAccountView = React.memo<Props>((props) =>
                         </View>
                         <View style={{paddingTop: 5, flexDirection: 'row'}}>
                             <PriceTxt
-                                priceTxt={numberFormat(props.myAccountData?.account_balance)}
+                                priceTxt={NumberFormat.numberFormat(props.myAccountData?.account_balance)}
                                 currencyVisible={true}
                                 priceStyle={styles.myAccountPriceTxt}
                                 currencyStyle={styles.myAccountCurrencyTxt}/>

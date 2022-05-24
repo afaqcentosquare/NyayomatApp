@@ -15,6 +15,7 @@ import {DiffColorTxt} from '../../components/DiffColorTxt';
 import UserInfoPreference from '../../../utils/UserInfoPreference';
 import Common from '../../../utils/Common';
 import MainApis from '../../../repo/main/MainApis';
+import ChangeDuration from '../../../utils/ChangeDuration';
 
 type Props = {
     item : requestResObj,
@@ -30,22 +31,6 @@ export const RequestItem = React.memo<Props>((props) =>
     const navigation = useNavigation<reqAssetNavProp>();
     const reqItemData = props.item ;
     const reqItemString = Strings.catalogue;
-
-    const changeDurationTxt = () =>
-    {
-        if(reqItemData.payment_frequency === 'Daily')
-        {
-            return "Days";
-        }
-        else if(reqItemData.payment_frequency === 'Weekly')
-        {
-            return "Weeks"
-        }
-        else
-        {
-            return "Months";
-        }
-    }
 
     const getReqItemData = async (reqId : number,statusTxt : string) =>
     {
@@ -79,8 +64,8 @@ export const RequestItem = React.memo<Props>((props) =>
         <TouchableOpacity
             activeOpacity={0.6}
             style={[styles.reqItemMainCont,{marginTop: props.index === 0 ? 15 : 6,marginBottom: props.index === props.length - 1 ?  15 : 6}]}>
-            <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
-                <View style={{flex:1,flexDirection:'row'}}>
+            <View style={styles.reqItemSubCont}>
+                <View style={styles.reqItemNameMainCont}>
                     <View style={styles.reqItemImgCont}>
                         <Image
                             style={styles.reqItemImg}
@@ -94,19 +79,19 @@ export const RequestItem = React.memo<Props>((props) =>
                                     text={reqItemData.asset_name}/>
                             </View>
                         </View>
-                        <View style={{marginTop:3}}>
+                        <View style={styles.reqItemMarginTop}>
                             <DiffColorTxt
                                 title={reqItemString.catalogueUnisTxt + " : "}
                                 dayNum={parseInt(reqItemData.units.toString())}
                                 dayTxt={""}/>
                         </View>
-                        <View style={{marginTop:3}}>
+                        <View style={styles.reqItemMarginTop}>
                             <DiffColorTxt
                                 title={reqItemString.catalogueDurationTxt + " :"}
                                 dayNum={reqItemData.installment}
-                                dayTxt={changeDurationTxt()}/>
+                                dayTxt={ChangeDuration.changeDuration(reqItemData.payment_frequency)}/>
                         </View>
-                        <View style={{marginTop:3}}>
+                        <View style={styles.reqItemMarginTop}>
                             <DiffColorTxt
                                 title={reqItemString.catalogueHolidayTxt + " :"}
                                 dayNum={reqItemData.holiday_provision}
@@ -114,7 +99,7 @@ export const RequestItem = React.memo<Props>((props) =>
                         </View>
                     </View>
                 </View>
-                <View style={{flexDirection:'row',marginTop:10}}>
+                <View style={styles.reqItemBtnCont}>
                     <View style={{flex:1}}>
                         <AppButton
                             onPress={() => getReqItemData(reqItemData.id,"cancel")}
@@ -144,8 +129,24 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         overflow:'hidden'
     },
+    reqItemSubCont : {
+        flex:1,
+        justifyContent:"center",
+        alignItems:'center'
+    },
+    reqItemNameMainCont : {
+        flex:1,
+        flexDirection:'row'
+    },
+    reqItemMarginTop : {
+        marginTop:3
+    },
     reqItemImgCont : {
         justifyContent:'center'
+    },
+    reqItemBtnCont : {
+        flexDirection:'row',
+        marginTop:10
     },
     reqItemImg : {
         width:75,

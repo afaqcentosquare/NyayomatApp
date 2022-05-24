@@ -1,16 +1,21 @@
 import React from 'react';
-import {Platform, StatusBar, StyleSheet, View} from 'react-native';
+import {NativeModules, Platform, StatusBar, StatusBarProps, StyleProp, StyleSheet,View} from 'react-native';
 import colors from '../../config/colors';
+const {StatusBarManager} = NativeModules;
 
-type Props = {}
-const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 40 : 15;
+type Props = {
+    style? : StyleProp<StatusBarProps> | undefined,
+}
+
+const APPBAR_HEIGHT = Platform.OS === 'ios' ? StatusBarManager.HEIGHT: StatusBarManager.HEIGHT;
 export const StatusBars = React.memo<Props>((props) =>
 {
     return(
-        <View style={styles.statusBarMainCont}>
+        <View style={[styles.statusBarMainCont,props.style]}>
             <StatusBar
-                barStyle="dark-content"
-            />
+                translucent
+                backgroundColor={colors.white}
+                barStyle="dark-content"/>
         </View>
     )
 })
@@ -18,7 +23,6 @@ export const StatusBars = React.memo<Props>((props) =>
 const styles = StyleSheet.create({
     statusBarMainCont : {
         width: "100%",
-        height: STATUS_BAR_HEIGHT,
-        backgroundColor: colors.white
+        height: APPBAR_HEIGHT,
     }
 })

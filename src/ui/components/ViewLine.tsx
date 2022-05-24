@@ -15,7 +15,7 @@ export const ViewLine = React.memo<Props>((props) =>
 const styles = StyleSheet.create({
     viewLine : {
         backgroundColor:'#cbd6ee',
-        height:2,
+        height:1.5,
         borderRadius:8
     }
 })

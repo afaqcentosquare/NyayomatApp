@@ -28,6 +28,7 @@ type Props = {
 
 export const TransactionView = React.memo<Props>((props) =>
 {
+
     return(
         <SafeAreaView
             style={styles.transMainCont}>

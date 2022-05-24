@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, Dimensions, StyleSheet, View} from 'react-native';
 
 type Props = {}
 

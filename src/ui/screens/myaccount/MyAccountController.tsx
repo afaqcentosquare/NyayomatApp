@@ -59,6 +59,7 @@ const MyAccountController : FC<Props> = () =>
             const user_token = await UserInfoPreference.getData(Common.ACCESS_TOKEN);
 
             const accountBalanceObj = {
+                'merchant_id' : user_id,
                 'Amount' : depositEdtTxt,
                 'PhoneNumber' : myAccountData?.mobile,
                 'TransactionDesc' : 'deposit'

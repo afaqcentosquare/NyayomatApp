@@ -1,56 +1,61 @@
-import React from "react" ;
-import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import React, {useState} from 'react' ;
+import {SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import colors from "../../../config/colors";
-// @ts-ignore
-import SignInImg from "../../../assets/images/sign_in_img.svg";
-// @ts-ignore
-import SignInLogo from "../../../assets/images/sign_in_logo.svg";
 import {AppText} from "../../components/AppText";
 import {InputText} from "../../components/InputText";
 import {AppButton} from "../../components/AppButton";
 import {GILROY} from "../../../config";
-import {StatusBars} from '../../components/StatusBars';
 import Strings from '../../../config/strings';
-import * as Yup from 'yup';
-import {useFormik} from 'formik';
 import {DialogComponent} from '../../components/DialogComponent';
+import {FONT_SIZE} from '../../../config/Dimens';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {AllScreenStackParamList} from '../../../routes/allroutes/AllScreenStack';
+import {useNavigation} from '@react-navigation/native';
+import {ErrorSnackBar} from '../../components/ErrorSnackBar';
+import {EdtErrorMsg} from '../../components/EdtErrorMsg';
+// @ts-ignore
+import SignInImg from "../../../assets/images/sign_in_img.svg";
+// @ts-ignore
+import SignInLogo from "../../../assets/images/sign_in_logo.svg";
+
 
 type Props = {
-    signIn? : (values: SignInFormValues) => void ;
-    dialogVisible : boolean
+    dialogVisible : boolean,
+    emailOnChangeTxt : (e : string) => void,
+    passOnChangeTxt : (e : string) => void,
+    emailVal : string,
+    passVal : string,
+    signInBtnClick : () => void,
+    errorEmail : boolean,
+    errorPass : boolean,
+    errorSnackVisible : boolean,
+    errorSnackTxt : string
 }
 
-export type  SignInFormValues = {
-    email : string,
-    password : string,
-}
-
-const validationSchema = Yup.object().shape({
-    email: Yup.string()
-        .required('Email address is a required field.'),
-    password: Yup.string()
-        .required('Password is a required field.'),
-});
-
-export const  signInInitialFormValues : SignInFormValues = {
-    email : '',
-    password : '',
-}
+type signInNavProp = StackNavigationProp<AllScreenStackParamList>;
 
 export const SignInView = React.memo<Props>((props) =>
 {
-    const formik = useFormik({
-        initialValues: signInInitialFormValues,
-        onSubmit: (values) =>
+    const navigation = useNavigation<signInNavProp>();
+    const signInTxt = Strings.signIn ;
+    const [passVisible,setPassVisible] = useState(true);
+    const eye = () =>
+    {
+        if(passVisible)
         {
-            props.signIn?.(values);
-        },
-        validationSchema: validationSchema,
-    });
-
+            setPassVisible(false)
+        }
+        else
+        {
+            setPassVisible(true)
+        }
+    }
 
     return(
         <SafeAreaView style={styles.signInContainer}>
+            <ErrorSnackBar
+                snackBarVisible={props.errorSnackVisible}
+                snackBarTxt={props.errorSnackTxt}/>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
@@ -66,30 +71,55 @@ export const SignInView = React.memo<Props>((props) =>
                     <View style={styles.signInTitleTxtCont}>
                         <AppText
                             style={styles.signInTitleTxt}
-                            text={Strings.signIn.signInTitleTxt}/>
+                            text={signInTxt.signInTitleTxt}/>
                     </View>
                     <View style={styles.signInNameCont}>
                         <InputText
                             visible={false}
+                            secureTxtEntry={false}
+                            errorIconVisible={props.emailVal === '' && props.errorEmail}
                             style={styles.signInNameInput}
-                            hint={Strings.signIn.signInNameHint}
-                            valueToShowAtStart={signInInitialFormValues.email}
-                            onChangeText={formik.handleChange('email')}/>
+                            hint={signInTxt.signInNameHint}
+                            valueToShowAtStart={props.emailVal}
+                            onChangeText={(email) => props.emailOnChangeTxt(email)}/>
+                            {props.emailVal === '' && props.errorEmail ?
+                            <EdtErrorMsg edtErrorTxt={signInTxt.signInEdtEmailErrorTxt}/> : null}
                     </View>
                     <View style={styles.signInPassCont}>
                         <InputText
                             visible={false}
                             style={styles.signInPassInput}
-                            hint={Strings.signIn.signInPassHint}
-                            secureTxtEntry={true}
-                            valueToShowAtStart={signInInitialFormValues.password}
-                            onChangeText={formik.handleChange('password')}/>
+                            hint={signInTxt.signInPassHint}
+                            secureTxtEntry={passVisible}
+                            eyeChange={() => eye()}
+                            eyeVisible={true}
+                            errorIconVisible={props.passVal === '' && props.errorPass}
+                            valueToShowAtStart={props.passVal}
+                            onChangeText={(pass) => props.passOnChangeTxt(pass)}/>
+                            {props.passVal === '' && props.errorPass ?
+                            <EdtErrorMsg edtErrorTxt={signInTxt.signInEdtPassErrorTxt}/> : null}
                     </View>
                     <View style={styles.signInBtnCont}>
                         <AppButton
-                            onPress={formik.handleSubmit}
-                            /*onPress={() => navigation.navigate('Discover')}*/
-                            text={Strings.signIn.signInBtnTxt}/>
+                            btnContStyle={styles.signInBtnSubCont}
+                            btnTxtStyle={styles.signInBtnTxt}
+                            onPress={() => props.signInBtnClick()}
+                            text={signInTxt.signInBtnTxt}/>
+                    </View>
+                    <View style={{paddingTop:20,flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                        <View>
+                            <AppText
+                                style={{fontFamily:GILROY.semi_bold,fontSize:FONT_SIZE.lg}}
+                                text={"Don't have an account? "}/>
+                        </View>
+                        <TouchableOpacity
+                            activeOpacity={0.6}
+                            onPress={() => navigation.navigate('SignUp')}
+                            style={styles.signInTitleTxtCont}>
+                            <AppText
+                                style={{fontFamily:GILROY.semi_bold,fontSize:FONT_SIZE.lg,color:colors.blue}}
+                                text={"Signup"}/>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>
@@ -101,6 +131,7 @@ const styles = StyleSheet.create({
     signInContainer:{
         flex:1,
         justifyContent:'center',
+        backgroundColor:colors.white
     },
     signInSubCont : {
         flex:1,
@@ -121,11 +152,10 @@ const styles = StyleSheet.create({
     signInTitleTxtCont : {
         justifyContent:'center',
         alignItems:'center',
-        paddingTop:20
     },
     signInTitleTxt : {
         fontFamily:GILROY.semi_bold,
-        fontSize:18,
+        fontSize:FONT_SIZE._2xl,
         fontWeight:"400"
     },
     signInNameCont : {
@@ -135,7 +165,7 @@ const styles = StyleSheet.create({
     },
     signInNameInput : {
         backgroundColor:colors.editTxt,
-        fontFamily:GILROY.semi_bold
+        fontFamily:GILROY.semi_bold,
     },
     signInPassCont : {
         paddingTop:20,
@@ -149,5 +179,15 @@ const styles = StyleSheet.create({
         paddingTop:20,
         paddingStart:20,
         paddingEnd:20
+    },
+    signInBtnSubCont : {
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    signInBtnTxt : {
+        fontFamily:GILROY.semi_bold,
+        includeFontPadding:false,
+        lineHeight:18
     }
 })

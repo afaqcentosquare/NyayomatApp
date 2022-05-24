@@ -40,11 +40,9 @@ export const AppButton = React.memo<Props>((props) =>
 const styles = StyleSheet.create({
     btnContainer:
         {
-            paddingStart:20,
-            paddingEnd:20,
-            paddingTop:5,
-            paddingBottom:5,
-            height:45,
+            height:50,
+            paddingStart:15,
+            paddingEnd:15,
             borderRadius:40,
             flexDirection:'row',
             justifyContent:'center',

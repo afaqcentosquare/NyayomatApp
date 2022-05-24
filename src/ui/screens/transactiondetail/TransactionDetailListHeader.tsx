@@ -7,6 +7,7 @@ import {ViewLine} from '../../components/ViewLine';
 import {myAssetObj} from '../../../models/api_response/MyAssetsResModel';
 import {assetInfoObj} from '../../../models/api_response/TransactionResModel';
 import {PriceTxt} from '../../components/PriceTxt';
+import NumberFormat from '../../../utils/NumberFormat';
 
 type Props = {
     transDetailData : assetInfoObj,
@@ -15,15 +16,6 @@ type Props = {
 
 export const TransactionDetailListHeader = React.memo<Props>((props) =>
 {
-    const numberFormat = (value : number) =>
-    {
-        const re = '\\d(?=(\\d{' + 3 + '})+' + '\\D' + ')';
-        // @ts-ignore
-        const num = value.toFixed(Math.max(0, ~~2));
-        const str = num.replace(new RegExp(re, 'g'), '$&' + ',');
-        return str;
-    }
-
     return(
         <View>
             <View style={styles.transDetailMainCont}>
@@ -35,7 +27,7 @@ export const TransactionDetailListHeader = React.memo<Props>((props) =>
                 <View style={{marginTop:3,flexDirection:'row',}}>
                     <View>
                         <PriceTxt
-                            priceTxt={numberFormat(props.totalAmount)}
+                            priceTxt={NumberFormat.numberFormat(props.totalAmount)}
                             currencyVisible={true}
                             priceStyle={styles.transDetailHeadPriceTxt}
                             currencyStyle={styles.transDetailHeadCurrencyTxt}/>

@@ -1,22 +1,18 @@
 import React from 'react';
-import {FlatList, SafeAreaView, StatusBar, StyleSheet, View} from 'react-native';
+import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
 import colors from '../../../config/colors';
 import {BackBtnHeader} from '../../components/headers/BackBtnHeader';
 import {AppText} from '../../components/AppText';
 import {GILROY} from '../../../config';
 import {ViewLine} from '../../components/ViewLine';
-import {OnGoingAssetsItem} from '../ongoingassets/OnGoingAssetsItem';
-import {ChooseAssetsObj} from '../../../models/ChooseAssetsModel';
 import {DefaultAssetItem} from './DefaultAssetItem';
-import {StatusBars} from '../../components/StatusBars';
 import Strings from '../../../config/strings';
-import {OnGoingAssetListHeader} from '../ongoingassets/OnGoingAssetListHeader';
-import {DefaultAssetListHeader} from './DefaultAssetListHeader';
 import {defaultInfoObj} from '../../../models/api_response/MyAssetsResModel';
 import {defaultAssetResObj} from '../../../models/api_response/DefaultAssetResModel';
 import {ProgressBar} from '../../components/ProgressBar';
 import {NoDataTxt} from '../../components/NoDataTxt';
 import {PriceTxt} from '../../components/PriceTxt';
+import NumberFormat from '../../../utils/NumberFormat';
 
 type Props = {
     defaultAssetListData : defaultAssetResObj[],
@@ -28,23 +24,6 @@ type Props = {
 export const DefaultAssetsView = React.memo<Props>((props) =>
 {
     const defaultAssetHeadString = Strings.defaultAsset;
-
-    const numberFormat = (value : number) =>
-    {
-        if(value !== null)
-        {
-            const re = '\\d(?=(\\d{' + 3 + '})+' + '\\D' + ')';
-            // @ts-ignore
-            const num = value.toFixed(Math.max(0, ~~2));
-            const str = num.replace(new RegExp(re, 'g'), '$&' + ',');
-            return str;
-        }
-        else
-        {
-            return "0.00";
-        }
-
-    }
 
     return(
         <SafeAreaView
@@ -63,7 +42,7 @@ export const DefaultAssetsView = React.memo<Props>((props) =>
                             </View>
                             <View style={styles.defaultAssetHeadPriceTxtCont}>
                                 <PriceTxt
-                                    priceTxt={numberFormat(props.defaultAssetData?.amount)}
+                                    priceTxt={NumberFormat.numberFormat(props.defaultAssetData?.amount)}
                                     currencyVisible={true}
                                     priceStyle={styles.defaultAssetHeadPriceTxt}
                                     currencyStyle={styles.defaultAssetHeadCurrencyTxt}/>
@@ -81,7 +60,7 @@ export const DefaultAssetsView = React.memo<Props>((props) =>
                             <View>
                                 <AppText
                                     style={styles.defaultAssetHeadAssetTitleTxt}
-                                    text={"My Assets"}/>
+                                    text={defaultAssetHeadString.defaultMyAssetTxt}/>
                             </View>
                         </View>
                     </View>
@@ -90,7 +69,6 @@ export const DefaultAssetsView = React.memo<Props>((props) =>
                     data={props.defaultAssetListData}
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
-                    /*ListHeaderComponent={() => <DefaultAssetListHeader defaultInfoData={props.defaultAssetData}/>}*/
                     renderItem={({item, index}) => <DefaultAssetItem index={index} length={props.defaultAssetListData.length} item={item}/>}
                     keyExtractor={(item, index) => index.toString()}/> : null}
                 {props.progressVisible ? <ProgressBar/> : null}
@@ -163,6 +141,7 @@ const styles = StyleSheet.create({
     defaultAssetHeadCurrencyTxt : {
         fontFamily:GILROY.semi_bold,
         fontSize:14,
+        marginBottom:3,
         fontWeight:'600',
         color:colors.white
     }

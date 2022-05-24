@@ -13,7 +13,7 @@ import ArrowRightIcon from '../../assets/images/arrow_right_icon.svg';
 
 type Props = {
     dayTxt : string,
-    paymentTxt : string,
+    paymentTxt : string ,
     color? : string,
     onPress? : () => void,
     viewDetail? : () => void
@@ -24,6 +24,7 @@ type MakePaymentNavProp = StackNavigationProp<AllScreenStackParamList>;
 export const MakePaymentCard = React.memo<Props>((props) =>
 {
     const navigation = useNavigation<MakePaymentNavProp>()
+    const makePayment = Strings.makePayment ;
 
     return(
         <View>
@@ -35,7 +36,7 @@ export const MakePaymentCard = React.memo<Props>((props) =>
                         <View>
                             <AppText
                                 style={styles.makePaymentCardTitleTxt}
-                                text={Strings.makePayment.makePaymentTitle}/>
+                                text={makePayment.makePaymentTitle}/>
                         </View>
                         <View style={styles.makePaymentCardTitleCont}>
                             <PriceTxt
@@ -50,7 +51,9 @@ export const MakePaymentCard = React.memo<Props>((props) =>
                         activeOpacity={0.6}
                         style={styles.makePaymentCardBtnCont}>
                         <View>
-                            <AppText style={{fontFamily:GILROY.semi_bold,color:colors.white}} text={Strings.makePayment.makePaymentPayTxt}/>
+                            <AppText
+                                style={styles.makePaymentCardPayBtnTxt}
+                                text={makePayment.makePaymentPayTxt}/>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -69,7 +72,7 @@ export const MakePaymentCard = React.memo<Props>((props) =>
                     activeOpacity={0.6}
                     onPress={props.viewDetail}>
                     <AppText
-                        text={Strings.makePayment.makePaymentViewDetail}
+                        text={makePayment.makePaymentViewDetail}
                         style={styles.makePaymentCardViewDetailTxt}/>
                 </TouchableOpacity>
             </View>
@@ -130,8 +133,7 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     makePaymentCardPayBtnTxt : {
-        fontFamily:GILROY.medium,
-        fontSize:16,
+        fontFamily:GILROY.semi_bold,
         color:colors.white
     },
     makePaymentCardBottomCont : {

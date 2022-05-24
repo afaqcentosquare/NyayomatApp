@@ -1,5 +1,5 @@
 import React from "react";
-import {SafeAreaView, ScrollView, StatusBar, StyleSheet, ToastAndroid, View} from 'react-native';
+import {SafeAreaView, ScrollView,StyleSheet,View} from 'react-native';
 import colors from "../../../../config/colors";
 import {TextHeader} from "../../../components/headers/TextHeader";
 
@@ -19,10 +19,8 @@ import {StackNavigationProp} from "@react-navigation/stack";
 import {AllScreenStackParamList} from "../../../../routes/allroutes/AllScreenStack";
 import {useNavigation} from "@react-navigation/native";
 import {DiscoverCard} from '../../../components/DiscoverCard';
-import {StatusBars} from '../../../components/StatusBars';
-import Common from '../../../../utils/Common';
 import UserInfoPreference from '../../../../utils/UserInfoPreference';
-import {GILROY} from '../../../../config';
+import {GILROY, Strings} from '../../../../config';
 
 type Props = {}
 
@@ -30,7 +28,8 @@ type DiscoverNavProp = StackNavigationProp<AllScreenStackParamList>;
 
 export const DiscoverView = React.memo<Props>(() =>
 {
-    const navigation = useNavigation<DiscoverNavProp>()
+    const navigation = useNavigation<DiscoverNavProp>();
+    const discoverTxt = Strings.discoverCardTxt;
 
     const signOutUser = () =>
     {
@@ -40,7 +39,10 @@ export const DiscoverView = React.memo<Props>(() =>
 
     return(
         <SafeAreaView style={styles.discoverMainCont}>
-            <TextHeader style={{fontFamily:GILROY.semi_bold,fontSize:18}} signOutBtn={signOutUser} title={"BOOST"}/>
+            <TextHeader
+                style={styles.discoverMainHeadTitleTxt}
+                signOutBtn={signOutUser}
+                title={discoverTxt.disMainHeadTitleTxt}/>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
@@ -48,30 +50,30 @@ export const DiscoverView = React.memo<Props>(() =>
                 <View style={styles.discoverMainSubCont}>
                     <View style={styles.discoverCardCont}>
                         <DiscoverCard
-                            discoverName={"Product\nCatalog"}
+                            discoverName={discoverTxt.disMainCardProductCatTxt}
                             discoverImg={MakeAppIcon}
                             discoverClick={() => navigation.navigate('chooseAssets')}/>
                         <DiscoverCard
-                            discoverName={"Make\nPayment"}
+                            discoverName={discoverTxt.disMainCardMakePayTxt}
                             discoverImg={MakePaymentIcon}
                             discoverClick={() => navigation.navigate('MakePayment')}/>
                     </View>
                     <View style={styles.discoverCardCont}>
                         <DiscoverCard
-                            discoverName={"My\nAssets"}
+                            discoverName={discoverTxt.disMainCardMyAssetTxt}
                             discoverImg={MyAssetIcon}
                             discoverClick={() => navigation.navigate('MyAssets')}/>
                         <DiscoverCard
-                            discoverName={"Transaction\nHistory"}
+                            discoverName={discoverTxt.disMainCardTransHisTxt}
                             discoverImg={TransactionHistoryIcon} discoverClick={() => navigation.navigate('transaction')}/>
                     </View>
                     <View style={styles.discoverCardCont}>
                         <DiscoverCard
-                            discoverName={"My\nNotifications"}
+                            discoverName={discoverTxt.disMainCardMyNotifyTxt}
                             discoverImg={MyNotifyIcon}
                             discoverClick={() => navigation.navigate('myNotify')}/>
                         <DiscoverCard
-                            discoverName={"My\nAccount"}
+                            discoverName={discoverTxt.disMainCardMyAccountTxt}
                             discoverImg={MyNotifyIcon}
                             discoverClick={() => navigation.navigate('myAccount')}/>
                     </View>
@@ -90,6 +92,10 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor:colors.backgroundColor
     },
+    discoverMainHeadTitleTxt : {
+        fontFamily:GILROY.semi_bold,
+        fontSize:18
+    },
     discoverCardCont : {
         flexDirection:'row',
         paddingStart:10,
@@ -101,5 +107,5 @@ const styles = StyleSheet.create({
         borderRadius:8,
         backgroundColor:'transparent',
         marginStart:5
-    }
+    },
 })

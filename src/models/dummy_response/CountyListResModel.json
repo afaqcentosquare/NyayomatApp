@@ -1,0 +1,196 @@
+{
+  "data" : [
+    {
+      "id" : "1",
+      "name" : "Mombasa"
+    },
+    {
+      "id" : "2",
+      "name" : "Kwale"
+    },
+    {
+      "id" : "3",
+      "name" : "Kilifi"
+    },
+    {
+      "id" : "4",
+      "name" : "Tana River"
+    },
+    {
+      "id" : "5",
+      "name" : "Lamu"
+    },
+    {
+      "id" : "6",
+      "name" : "Taita Taveta"
+    },
+    {
+      "id" : "7",
+      "name" : "Garissa"
+    },
+    {
+      "id" : "8",
+      "name" : "Wajir"
+    },
+    {
+      "id" : "9",
+      "name" : "Mandera"
+    },
+    {
+      "id" : "10",
+      "name" : "Marsabit"
+    },
+    {
+      "id" : "11",
+      "name" : "Turkana"
+    },
+    {
+      "id" : "12",
+      "name" : "Isiolo"
+    },
+    {
+      "id" : "13",
+      "name" : "Meru"
+    },
+    {
+      "id" : "14",
+      "name" : "Tharaka-Nithi"
+    },
+    {
+      "id" : "15",
+      "name" : "Embu"
+    },
+    {
+      "id" : "16",
+      "name" : "Kitui"
+    },
+    {
+      "id" : "17",
+      "name" : "Machakos"
+    },
+    {
+      "id" : "18",
+      "name" : "Makueni"
+    },
+    {
+      "id" : "19",
+      "name" : "Nyandarua"
+    },
+    {
+      "id" : "20",
+      "name" : "Nyeri"
+    },
+    {
+      "id" : "21",
+      "name" : "Kirinyaga"
+    },
+    {
+      "id" : "22",
+      "name" : "Muranga"
+    },
+    {
+      "id" : "23",
+      "name" : "Kiambu"
+    },
+    {
+      "id" : "24",
+      "name" : "West Pokot"
+    },
+    {
+      "id" : "25",
+      "name" : "Samburu"
+    },
+    {
+      "id" : "26",
+      "name" : "Samburu"
+    },
+    {
+      "id" : "27",
+      "name" : "Trans Nzoia"
+    },
+    {
+      "id" : "28",
+      "name" : "Usain Gishu"
+    },
+    {
+      "id" : "29",
+      "name" : "Elgeyo Marakwet"
+    },
+    {
+      "id" : "30",
+      "name" : "Nandi"
+    },
+    {
+      "id" : "31",
+      "name" : "Baringo"
+    },
+    {
+      "id" : "32",
+      "name" : "Laikipia"
+    },
+    {
+      "id" : "33",
+      "name" : "Nakuru"
+    },
+    {
+      "id" : "34",
+      "name" : "Narok"
+    },
+    {
+      "id" : "35",
+      "name" : "Kajiado"
+    },
+    {
+      "id" : "36",
+      "name" : "Kericho"
+    },
+    {
+      "id" : "37",
+      "name" : "Bomet"
+    },
+    {
+      "id" : "38",
+      "name" : "Kakamega"
+    },
+    {
+      "id" : "39",
+      "name" : "Vihiga"
+    },
+    {
+      "id" : "40",
+      "name" : "Bungoma"
+    },
+    {
+      "id" : "41",
+      "name" : "Busia"
+    },
+    {
+      "id" : "42",
+      "name" : "Siaya"
+    },
+    {
+      "id" : "43",
+      "name" : "Kisumu"
+    },
+    {
+      "id" : "44",
+      "name" : "Homa Bay"
+    },
+    {
+      "id" : "45",
+      "name" : "Migori"
+    },
+    {
+      "id" : "46",
+      "name" : "Kisii"
+    },
+    {
+      "id" : "47",
+      "name" : "Nyamira"
+    },
+    {
+      "id" : "48",
+      "name" : "Nairobi"
+    }
+  ]
+}

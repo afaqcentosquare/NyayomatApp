@@ -25,7 +25,8 @@ export type AllScreenStackParamList = {
     transaction : undefined,
     myNotify : undefined,
     transactionDetail : { item : assetInfoObj },
-    myAccount : undefined
+    myAccount : undefined,
+    SignUp : undefined
 }
 
 export const AllScreenStack = createStackNavigator<AllScreenStackParamList>();

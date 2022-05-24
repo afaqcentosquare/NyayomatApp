@@ -9,6 +9,7 @@ import {GILROY} from '../../../config';
 import TransIcon2 from '../../../assets/images/trans_icon_2.svg';
 import {totalReceiptObj} from '../../../models/api_response/TransactionResModel';
 import {PriceTxt} from '../../components/PriceTxt';
+import NumberFormat from '../../../utils/NumberFormat';
 
 type Props = {
     transCardData : totalReceiptObj,
@@ -17,22 +18,6 @@ type Props = {
 
 export const TransactionListHeader = React.memo<Props>((props) =>
 {
-    const numberFormat = (value : number) =>
-    {
-        if(value !== null)
-        {
-            const re = '\\d(?=(\\d{' + 3 + '})+' + '\\D' + ')';
-            // @ts-ignore
-            const num = value.toFixed(Math.max(0, ~~2));
-            const str = num.replace(new RegExp(re, 'g'), '$&' + ',');
-            return str;
-        }
-        else
-        {
-            return "0.00";
-        }
-
-    }
 
     return(
         <View>
@@ -55,7 +40,7 @@ export const TransactionListHeader = React.memo<Props>((props) =>
                     </View>
                     <View style={{paddingTop:5}}>
                         <PriceTxt
-                            priceTxt={numberFormat(props.transCardData?.total === undefined ? 0 : props.transCardData?.total)}
+                            priceTxt={NumberFormat.numberFormat(props.transCardData?.total === undefined ? 0 : props.transCardData?.total)}
                             currencyVisible={true}
                             priceStyle={styles.transListHeaderPriceTxt}
                             currencyStyle={styles.transListHeaderCurrencyTxt}/>
@@ -79,7 +64,7 @@ export const TransactionListHeader = React.memo<Props>((props) =>
                     </View>
                     <View style={{paddingTop:5}}>
                         <PriceTxt
-                            priceTxt={numberFormat(props.transPaidData === undefined ? 0 : props.transPaidData)}
+                            priceTxt={NumberFormat.numberFormat(props.transPaidData === undefined ? 0 : props.transPaidData)}
                             currencyVisible={true}
                             priceStyle={styles.transListHeaderPriceTxt}
                             currencyStyle={styles.transListHeaderCurrencyTxt}/>

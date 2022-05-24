@@ -5,9 +5,44 @@ export default
         signInNameHint : "USERNAME",
         signInPassHint : "PASSWORD",
         signInBtnTxt : "LOGIN",
+        signInNoAccountTxt : "Dont have an account signup",
+        signInEdtEmailErrorTxt : "Please enter email",
+        signInEdtPassErrorTxt : "Please enter password",
+    },
+
+    signUp : {
+        signUpTitleTxt : "For those who buy and sell",
+        signUpEmailHint : "Enter email",
+        signUpNumberHint : "Enter number",
+        signUpPasswordHint : "Enter password",
+        signUpConfirmPasswordHint : "Enter confirm password",
+        signUpShopNameHint : "Enter shop name",
+        signUpCityHint : "Select city",
+        signUpRegionHint : "Select region",
+        signUpLocationHint : "Select Location",
+        signUpBtnTxt : "SIGNUP",
+
+        signUpAppErrorTxt : "Please enter applicant",
+        signUpShopErrorTxt : "Please enter shop name",
+        signUpPhoneErrorTxt : "Please enter phone number",
+        signUpEmailErrorTxt : "Please enter email",
+        signUpCountryErrorTxt : "Please enter country",
+        signUpSubCountryErrorTxt : "Please enter sub country",
+        signUpLocationErrorTxt : "Please enter location",
+    },
+
+    discoverCardTxt : {
+        disMainHeadTitleTxt : "BOOST",
+        disMainCardProductCatTxt : "Product\nCatalog",
+        disMainCardMakePayTxt : "Make\nPayment",
+        disMainCardMyAssetTxt : "My\nAssets",
+        disMainCardTransHisTxt : "Transaction\nHistory",
+        disMainCardMyNotifyTxt : "My\nNotifications",
+        disMainCardMyAccountTxt : "My\nAccount"
     },
 
     makeApp : {
+        makeAppHeaderTxt : "Make an Application",
         makeAppDetailTxt : "Application Details",
         makeAppSalePriceTxt : "Sale Price",
         makeAppDepositAmountTxt : "Deposit Amount",
@@ -76,14 +111,16 @@ export default
         defaultAssetCardTitle : "TOTAL DEFAULTED",
         defaultAssetMissedPayment : "Missed Payment",
         defaultAssetPaymentLeft: "PAYMENTS LEFT",
-        defaultAssetPaymentInterval : "PAYMENT INTERVAL"
+        defaultAssetPaymentInterval : "PAYMENT INTERVAL",
+        defaultMyAssetTxt : "My Assets"
     },
 
     completeAsset : {
         completeAssetHeaderTxt : "Completed Assets Detail",
         completeAssetCardTitleTxt : "TOTAL PAID",
         completeAssetPaymentInterval : "PAYMENT INTERVAL",
-        completeAssetTotalPayment : "TOTAL PAYMENTS"
+        completeAssetTotalPayment : "Total Payments",
+        completeAssetTotalPayment2 : "TOTAL PAYMENTS"
     },
 
     transaction : {
@@ -103,5 +140,15 @@ export default
     myAccount : {
         myAccountHeadTxt : "My Account",
         myAccountEdtHint : "Enter Deposit Amount"
+    },
+
+    countryListTitle : {
+        countryListHeadTitle : "Select City",
+        countrySearchHint : "Search"
+    },
+
+    errorMessage  : {
+        invalidEmail : "Invalid email and password",
+        somethingWentWrongTxt : "Something went wrong"
     }
 }

@@ -59,7 +59,7 @@ export const BottomNavRoutes : FC<Props> = ({}) =>
                 name="Discover"
                 component={ DiscoverController }
                 options={{
-                headerShown:false,
+                    headerShown:false,
                     tabBarIcon: ({focused, color}) =>  (focused ? <DiscoverActiveNavIcon /> : <DiscoverInActiveNavIcon/>)}}/>
 
             <Tab.Screen

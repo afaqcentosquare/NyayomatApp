@@ -12,6 +12,7 @@ import Strings from '../../../config/strings';
 import {DiffColorTxt} from '../../components/DiffColorTxt';
 import {DiffColorTxt2} from '../../components/DiffColorTxt2';
 import Api from '../../../config/Api';
+import NumberFormat from '../../../utils/NumberFormat';
 
 type Props = {
     index : number,
@@ -27,23 +28,6 @@ export const OnGoingAssetsItem = React.memo<Props>((props) =>
     const onGoingItemData = props.item;
     const onGoingItemString = Strings.onGoingAsset;
 
-    const numberFormat = (value : number) =>
-    {
-        if(value !== null)
-        {
-            const re = '\\d(?=(\\d{' + 3 + '})+' + '\\D' + ')';
-            // @ts-ignore
-            const num = value.toFixed(Math.max(0, ~~2));
-            const str = num.replace(new RegExp(re, 'g'), '$&' + ',');
-            return str;
-        }
-        else
-        {
-            return "0.00";
-        }
-
-    }
-
     return(
         <TouchableOpacity
             activeOpacity={0.6}
@@ -53,8 +37,7 @@ export const OnGoingAssetsItem = React.memo<Props>((props) =>
             <View>
                 <Image
                     style={styles.onGoingAssetItemImg}
-                    source={{uri : Api.IMAGE_BASE_URL + props.item.image}}
-                    /*source={(require('../../../assets/images/peas_img.jpg'))*//>
+                    source={{uri : Api.IMAGE_BASE_URL + props.item.image}}/>
             </View>
             <View style={styles.onGoingAssetNameMainCont}>
                 <View style={{flexDirection:'row'}}>
@@ -64,17 +47,17 @@ export const OnGoingAssetsItem = React.memo<Props>((props) =>
                             text={onGoingItemData.asset_name}/>
                     </View>
                 </View>
-                <View style={{marginTop:3}}>
+                <View style={styles.onGoingAssetItemMarginTop}>
                     <DiffColorTxt2
                         lightTxt={"Balance : "}
-                        darkTxt={numberFormat(onGoingItemData?.total_out_standing_amount === undefined ? 0 : onGoingItemData?.total_out_standing_amount) + " KSH"}/>
+                        darkTxt={NumberFormat.numberFormat(onGoingItemData?.total_out_standing_amount === undefined ? 0 : onGoingItemData?.total_out_standing_amount) + " KSH"}/>
                 </View>
-                <View style={{marginTop:3}}>
+                <View style={styles.onGoingAssetItemMarginTop}>
                     <DiffColorTxt2
                         lightTxt={onGoingItemString.onGoingAssetPaymentInterval + " : "}
                         darkTxt={onGoingItemData.payment_frequency}/>
                 </View>
-                <View style={{marginTop:3}}>
+                <View style={styles.onGoingAssetItemMarginTop}>
                     <DiffColorTxt2
                         lightTxt={onGoingItemString.onGoingAssetPaymentLeft2 + " : "}
                         darkTxt={onGoingItemData.payments_left.toString()}/>
@@ -100,6 +83,9 @@ const styles = StyleSheet.create({
         width:70,
         height:70,
         borderRadius:8
+    },
+    onGoingAssetItemMarginTop : {
+        marginTop : 3
     },
     onGoingAssetNameMainCont : {
         justifyContent:'center',

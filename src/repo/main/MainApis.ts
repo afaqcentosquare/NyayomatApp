@@ -2,10 +2,16 @@ import {SignInReqModel} from '../../models/api_request/SignInReqModel';
 import axios from 'axios';
 import Api from '../../config/Api';
 import {PostAssetReqModel} from '../../models/api_request/PostAssetReqModel';
+import {SignUpReqModel} from '../../models/api_request/SignUpReqModel';
 
 function signIn(signInModel : SignInReqModel)
 {
     return axios.post(Api.BASE_URL + Api.LOGIN, signInModel);
+}
+
+function signUp(signUpModel : SignUpReqModel)
+{
+    return axios.post(Api.BASE_URL + Api.REGISTER, signUpModel);
 }
 
 function getCatalog(user_id : string,user_token : string)
@@ -178,8 +184,24 @@ function getCompleteTransDetail(user_id : string,user_token : string,order_id : 
     return axios.get(Api.BASE_URL + Api.COMPLETE_TRANS_DETAIL + parseInt(order_id) , { headers });
 }
 
+function getSignUpCity()
+{
+    return axios.get(Api.BASE_URL + Api.SIGNUP_CITY_DATA);
+}
+
+function getSignUpRegion(city_id : number)
+{
+    return axios.get(Api.BASE_URL + Api.SIGNUP_REGION_DATA + city_id);
+}
+
+function getSignUpLoc(loc_id : number)
+{
+    return axios.get(Api.BASE_URL + Api.SIGNUP_LOC_DATA + loc_id);
+}
+
 export default {
     signIn,
+    signUp,
     getCatalog,
     getBrowseCatalog,
     getReqCatalog,
@@ -198,5 +220,8 @@ export default {
     getAccountBalance,
     postBalanceData,
     getPayData,
-    getCompleteTransDetail
+    getCompleteTransDetail,
+    getSignUpCity,
+    getSignUpRegion,
+    getSignUpLoc
 }

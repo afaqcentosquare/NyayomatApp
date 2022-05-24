@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {assetInfoObj} from '../../../models/api_response/TransactionResModel';
 import {DiffColorTxt2} from '../../components/DiffColorTxt2';
 import Api from '../../../config/Api';
+import NumberFormat from '../../../utils/NumberFormat';
 
 type Props = {
     index : number,
@@ -25,23 +26,6 @@ type transactionNavProp = StackNavigationProp<AllScreenStackParamList>;
 export const TransactionItem = React.memo<Props>((props) =>
 {
     const navigation = useNavigation<transactionNavProp>()
-
-    const numberFormat = (value : number) =>
-    {
-        if(value !== null)
-        {
-            const re = '\\d(?=(\\d{' + 3 + '})+' + '\\D' + ')';
-            // @ts-ignore
-            const num = value.toFixed(Math.max(0, ~~2));
-            const str = num.replace(new RegExp(re, 'g'), '$&' + ',');
-            return str;
-        }
-        else
-        {
-            return "0.00";
-        }
-
-    }
 
     return(
         <TouchableOpacity
@@ -65,7 +49,7 @@ export const TransactionItem = React.memo<Props>((props) =>
                 <View style={{marginTop:3}}>
                     <DiffColorTxt2
                         lightTxt={"AMT : "}
-                        darkTxt={numberFormat(props.item.amount) + " KSH"}/>
+                        darkTxt={NumberFormat.numberFormat(props.item.amount) + " KSH"}/>
                 </View>
                 <View style={{marginTop:3}}>
                     <DiffColorTxt2

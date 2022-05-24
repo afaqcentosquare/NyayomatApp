@@ -4,7 +4,6 @@ import colors from '../../../config/colors';
 import {BackBtnHeader} from '../../components/headers/BackBtnHeader';
 import {CompletedAssetItem} from './CompletedAssetItem';
 import Strings from '../../../config/strings';
-import {CompleteAssetListHeader} from './CompleteAssetListHeader';
 import {completeAssetObj} from '../../../models/api_response/CompleteAssetResModel';
 import {completeInfoObj} from '../../../models/api_response/MyAssetsResModel';
 import {ProgressBar} from '../../components/ProgressBar';
@@ -70,7 +69,7 @@ export const CompletedAssetView = React.memo<Props>((props) =>
                         <View style={styles.completeAssetPaymentSubCont}>
                             <AppText
                                 style={styles.completeAssetPaymentTxt}
-                                text={"Total Payments : " + completeListHeadData.total_payments}/>
+                                text={completeListHeadString.completeAssetTotalPayment + " : " + completeListHeadData.total_payments}/>
                         </View>
                     </View>
                     <ViewLine style={styles.completeAssetViewLine}/>
@@ -86,7 +85,6 @@ export const CompletedAssetView = React.memo<Props>((props) =>
                     data={props.completeAssetListData}
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
-                    /*ListHeaderComponent={() => <CompleteAssetListHeader completeAssetData={props.completeAssetData}/>}*/
                     renderItem={({item, index}) => <CompletedAssetItem length={props.completeAssetListData.length} index={index} item={item}/>}
                     keyExtractor={(item, index) => index.toString()}/> : null}
                 {props.progressVisible ? <ProgressBar/> : null}

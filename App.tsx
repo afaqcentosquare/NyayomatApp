@@ -5,7 +5,8 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {AllScreenRoutes} from './src/routes/allroutes/AllScreenRoutes';
 
-const App = () => {
+const App = () =>
+{
 
   return (
     <NavigationContainer>

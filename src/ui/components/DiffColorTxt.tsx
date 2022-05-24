@@ -7,7 +7,7 @@ import colors from '../../config/colors';
 
 type Props = {
     title : string,
-    dayNum : number,
+    dayNum : number | string,
     dayTxt : string
 }
 

@@ -9,8 +9,9 @@ import {useNavigation} from '@react-navigation/native';
 import Strings from '../../../config/strings';
 import {browseResObj} from '../../../models/api_response/CatalogResModel';
 import {DiffColorTxt} from '../../components/DiffColorTxt';
-import {PriceTxt} from '../../components/PriceTxt';
 import Api from '../../../config/Api';
+import NumberFormat from '../../../utils/NumberFormat';
+import ChangeDuration from '../../../utils/ChangeDuration';
 
 type Props = {
     item : browseResObj,
@@ -25,39 +26,6 @@ export const BrowseItem = React.memo<Props>((props) =>
     const navigation = useNavigation<ChooseAssetNavProp>();
     const browseItemData = props.item ;
     const browseItemString = Strings.catalogue ;
-
-    const changeDurationTxt = () =>
-    {
-        if(browseItemData.payment_frequency === 'Daily')
-        {
-            return "Days";
-        }
-        else if(browseItemData.payment_frequency === 'Weekly')
-        {
-            return "Weeks"
-        }
-        else
-        {
-            return "Months";
-        }
-    }
-
-    const numberFormat = (value : number) =>
-    {
-        if(value !== null)
-        {
-            const re = '\\d(?=(\\d{' + 3 + '})+' + '\\D' + ')';
-            // @ts-ignore
-            const num = value.toFixed(Math.max(0, ~~2));
-            const str = num.replace(new RegExp(re, 'g'), '$&' + ',');
-            return str;
-        }
-        else
-        {
-            return "0.00";
-        }
-    }
-
 
     return(
         <TouchableOpacity
@@ -77,19 +45,19 @@ export const BrowseItem = React.memo<Props>((props) =>
                             text={browseItemData.asset_name}/>
                     </View>
                 </View>
-                <View style={{marginTop:3}}>
+                <View style={styles.browseTxtGap}>
                     <DiffColorTxt
                         title={browseItemString.catalogueCostTxt + " :"}
-                        dayNum={parseInt(numberFormat(browseItemData.unit_cost))}
+                        dayNum={NumberFormat.numberFormat(browseItemData.unit_cost)}
                         dayTxt={"KSH"}/>
                 </View>
-                <View style={{marginTop:3}}>
+                <View style={styles.browseTxtGap}>
                     <DiffColorTxt
                         title={browseItemString.catalogueDurationTxt + " :"}
                         dayNum={browseItemData.installment}
-                        dayTxt={changeDurationTxt()}/>
+                        dayTxt={ChangeDuration.changeDuration(browseItemData.payment_frequency)}/>
                 </View>
-                <View style={{marginTop:3}}>
+                <View style={styles.browseTxtGap}>
                     <DiffColorTxt
                         title={browseItemString.catalogueHolidayTxt + " :"}
                         dayNum={browseItemData.holiday_provision}
@@ -109,6 +77,9 @@ const styles = StyleSheet.create({
         alignItems:'center',
         flexDirection:'row',
         overflow:'hidden'
+    },
+    browseTxtGap : {
+        marginTop:3
     },
     browseItemImg : {
         width:75,

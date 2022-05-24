@@ -264,7 +264,6 @@ export const CatalogueView = React.memo<Props>((props) =>
             />
     )
 
-
     // @ts-ignore
     return(
         <SafeAreaView style={styles.catalogueMainCont}>

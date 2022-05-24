@@ -1,14 +1,13 @@
 import React, {FC, useState} from 'react';
 import {SignInView} from "./SignInView";
 import MainApis from '../../../repo/main/MainApis';
-import {SignInReqModel} from '../../../models/api_request/SignInReqModel';
 import {SignInResModel} from '../../../models/api_response/SignInResModel';
-import {Platform, ToastAndroid,} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {AllScreenStackParamList} from '../../../routes/allroutes/AllScreenStack';
 import {useNavigation} from '@react-navigation/native';
 import UserInfoPreference from '../../../utils/UserInfoPreference';
 import Common from '../../../utils/Common';
+import {Strings} from '../../../config';
 
 type Props = {}
 
@@ -17,12 +16,44 @@ type SignInNavProp = StackNavigationProp<AllScreenStackParamList>;
 const SignInController : FC<Props> = () =>
 {
     const navigation = useNavigation<SignInNavProp>()
+    const [email,setEmail] = useState("");
+    const [pass,setPass] = useState("");
+    const [emailError,setEmailError] = useState(false);
+    const [passError,setPassError] = useState(false);
     const [dialogVisible,setDialogVisible] = useState(false);
+    const [errorSnackVisible,setErrorSnackVisible] = useState(false);
+    const [errorSnackTxt,setErrorSnackTxt] = useState("");
+    const signInTxt = Strings.errorMessage;
 
-    const signInUser = async (values : SignInReqModel) =>
+
+    const signInEdtEmptyCheck = () =>
+    {
+        if(email !== '')
+        {
+            if(pass !== '')
+            {
+                signInUser().then(r => r)
+            }
+            else
+            {
+                setPassError(true)
+            }
+        }
+        else
+        {
+            setEmailError(true)
+        }
+    }
+
+    const signInUser = async () =>
     {
         try
         {
+            const values = {
+                'email' : email,
+                'password' : pass
+            }
+            setErrorSnackVisible(false)
             setDialogVisible(true);
             await MainApis.signIn(values)
                 .then((response) =>
@@ -36,67 +67,47 @@ const SignInController : FC<Props> = () =>
                             UserInfoPreference.storeData(Common.ACCESS_TOKEN,data.token);
                             navigation.navigate('Discover')
                             setDialogVisible(false)
-                            /*if (Platform.OS === 'android') {
-                                ToastAndroid.show("msg", ToastAndroid.SHORT)
-                            } else {
-                                AlertIOS.alert("Successfully Login");
-                            }*/
                         }
                         else
                         {
                             setDialogVisible(false);
-                            console.log("status false");
-                            /*if (Platform.OS === 'android') {
-                                ToastAndroid.show("msg", ToastAndroid.SHORT)
-                            } else {
-                                AlertIOS.alert("msg");
-                            }*/
                         }
                     }
                     else if(response.status === 204)
                     {
-                        /*if (Platform.OS === 'android') {
-                            ToastAndroid.show("msg", ToastAndroid.SHORT)
-                        } else {
-                            AlertIOS.alert("msg");
-                        }*/
+                        setErrorSnackTxt(signInTxt.invalidEmail);
+                        setErrorSnackVisible(true)
                         setDialogVisible(false);
-                        console.log("Incorrect email and password");
                     }
                     else
                     {
-                        /*if (Platform.OS === 'android') {
-                            ToastAndroid.show("msg", ToastAndroid.SHORT)
-                        } else {
-                            AlertIOS.alert("msg");
-                        }*/
+                        setErrorSnackTxt(signInTxt.somethingWentWrongTxt);
+                        setErrorSnackVisible(true)
                         setDialogVisible(false);
-                        //ToastAndroid.show("something went wrong",ToastAndroid.LONG);
-                        console.log("something went wrong");
                     }
                 })
         }
         catch (e)
         {
-            /*if (Platform.OS === 'android') {
-                ToastAndroid.show("msg", ToastAndroid.SHORT)
-            } else {
-                AlertIOS.alert("msg");
-            }*/
-            //ToastAndroid.show("Incorrect email or password",ToastAndroid.LONG);
+            setErrorSnackTxt(signInTxt.somethingWentWrongTxt);
+            setErrorSnackVisible(true)
             setDialogVisible(false);
-            console.log("SignIn Exception" + e);
         }
 
     }
 
     return(
         <SignInView
-            signIn={(values =>
-            {
-                signInUser(values).then(r => r)
-            })}
-            dialogVisible={dialogVisible}/>
+            emailOnChangeTxt={(email) => setEmail(email)}
+            passOnChangeTxt={(pass) => setPass(pass)}
+            dialogVisible={dialogVisible}
+            emailVal={email}
+            passVal={pass}
+            errorEmail={emailError}
+            errorPass={passError}
+            signInBtnClick={() => signInEdtEmptyCheck()}
+            errorSnackVisible={errorSnackVisible}
+            errorSnackTxt={errorSnackTxt}/>
     )
 }
 

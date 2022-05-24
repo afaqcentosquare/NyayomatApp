@@ -14,6 +14,7 @@ import Common from '../../../utils/Common';
 import MainApis from '../../../repo/main/MainApis';
 import {PriceTxt} from '../../components/PriceTxt';
 import Api from '../../../config/Api';
+import NumberFormat from '../../../utils/NumberFormat';
 
 type Props = {
     item : paymentConfirmResObj,
@@ -58,22 +59,6 @@ export const PaymentConfirmItem = React.memo<Props>((props) =>
         }
     }
 
-    const numberFormat = (value : number) =>
-    {
-        if(value !== null)
-        {
-            const re = '\\d(?=(\\d{' + 3 + '})+' + '\\D' + ')';
-            // @ts-ignore
-            const num = value.toFixed(Math.max(0, ~~2));
-            const str = num.replace(new RegExp(re, 'g'), '$&' + ',');
-            return str;
-        }
-        else
-        {
-            return "0.00";
-        }
-    }
-
     return(
         <View
             style={[styles.paymentConfirmItemMainCont,{marginTop: props.index === 0 ? 15 : 6,marginBottom: props.index === props.length - 1 ?  15 : 6}]}>
@@ -92,18 +77,18 @@ export const PaymentConfirmItem = React.memo<Props>((props) =>
                     <View style={{marginTop:2}}>
                         <DiffColorTxt
                             title={paymentConfirmString?.paymentConfirmUnitCostTXT + " "}
-                            dayNum={parseInt(numberFormat(paymentConfirmItemData?.unit_cost === undefined ? 0 : paymentConfirmItemData?.unit_cost))}
+                            dayNum={parseInt(NumberFormat.numberFormat(paymentConfirmItemData?.unit_cost === undefined ? 0 : paymentConfirmItemData?.unit_cost))}
                             dayTxt={"KSH"}/>
                     </View>
                     <View style={{marginTop:2}}>
                         <DiffColorTxt
                             title={paymentConfirmString?.paymentConfirmUnitTxt + " "}
-                            dayNum={parseInt(numberFormat(paymentConfirmItemData?.units === undefined ? 0 : paymentConfirmItemData?.units))}
+                            dayNum={parseInt(NumberFormat.numberFormat(paymentConfirmItemData?.units === undefined ? 0 : paymentConfirmItemData?.units))}
                             dayTxt={""}/>
                     </View>
                     <View style={styles.paymentConfirmItemPriceCont}>
                         <PriceTxt
-                            priceTxt={numberFormat(paymentConfirmItemData?.amount === undefined ? 0 : paymentConfirmItemData?.amount)}
+                            priceTxt={NumberFormat.numberFormat(paymentConfirmItemData?.amount === undefined ? 0 : paymentConfirmItemData?.amount)}
                             currencyVisible={true}
                             priceStyle={styles.paymentConfirmItemPriceTxt}
                             currencyStyle={styles.paymentConfirmItemPriceTxt}/>

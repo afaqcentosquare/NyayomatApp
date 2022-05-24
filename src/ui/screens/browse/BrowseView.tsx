@@ -20,7 +20,9 @@ export const BrowseView = React.memo<Props>((props) =>
     return(
             <View style={[styles.browseMainCont]}>
                 <View>
-                    <BrowseListHeader search={props.search} searchTxt={(e) => props.searchTxt(e)}/>
+                    <BrowseListHeader
+                        search={props.search}
+                        searchTxt={(e) => props.searchTxt(e)}/>
                 </View>
                 {props.browseListData.length > 0 ? <View style={{flex:1}}>
                     <FlatList
@@ -32,7 +34,7 @@ export const BrowseView = React.memo<Props>((props) =>
                                 item={item}
                                 index={index}
                                 length={props.browseListData.length}/>}
-                        keyExtractor={(item, index) => index.toString()}/>
+                                keyExtractor={(item, index) => index.toString()}/>
                 </View> : null}
                 {props.browseProgress ? <ProgressBar/> : null}
                 {props.browseNoDataTxt ? <NoDataTxt/> : null}

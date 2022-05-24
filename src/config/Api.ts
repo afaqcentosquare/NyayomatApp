@@ -1,12 +1,13 @@
 export default
 {
     //BASE URLS
-    IMAGE_BASE_URL : "http://acp.nyayomat.com/",
-    BASE_URL : "http://acp.nyayomat.com/api/merchant/",
-    ACCOUNT_BALANCE_URL : "http://acp.nyayomat.com/api/",
+    IMAGE_BASE_URL : "https://nyayomat.com/",
+    BASE_URL : "https://nyayomat.com/api/merchant/",
+    ACCOUNT_BALANCE_URL : "https://nyayomat.com/api/",
 
     //function name
     LOGIN : "login",
+    REGISTER : "register/request",
     CATALOG : "catalog/",
     BROWSE_CATALOG : "browse/",
     REQUEST_CATALOG : "requested/",
@@ -25,6 +26,9 @@ export default
     ACCOUNT_BALANCE : "accountbalance/",
     POST_ACCOUNT_BALANCE : "mpesa/deposit",
     PAY_DATA : "pay/all/",
-    COMPLETE_TRANS_DETAIL : "completedassetdetails/"
+    COMPLETE_TRANS_DETAIL : "completedassetdetails/",
+    SIGNUP_CITY_DATA : "city",
+    SIGNUP_REGION_DATA : "region/",
+    SIGNUP_LOC_DATA : "location/"
 
 }

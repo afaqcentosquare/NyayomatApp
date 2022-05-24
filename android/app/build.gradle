@@ -45,7 +45,7 @@ import com.android.build.OutputFile
  *   //         'devDisabledIn${productFlavor}${buildType}'
  *   //         'devDisabledIn${buildType}'
  *
- *   // the root of your project, i.e. where "package.json" lives
+ *   // the root of your project, i.e. where "CountryListResModel.json" lives
  *   root: "../../",
  *
  *   // where to put the JS bundle asset in debug mode

@@ -15,13 +15,10 @@ import {MakeAppCard} from '../../components/MakeAppCard';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {AllScreenStackParamList} from '../../../routes/allroutes/AllScreenStack';
 import {useNavigation} from '@react-navigation/native';
-import {StatusBars} from '../../components/StatusBars';
 import Strings from '../../../config/strings';
-import strings from '../../../config/strings';
 import {browseResObj} from '../../../models/api_response/CatalogResModel';
-import units from 'react-native-svg/lib/typescript/lib/units';
-import {PriceTxt} from '../../components/PriceTxt';
 import Api from '../../../config/Api';
+import NumberFormat from '../../../utils/NumberFormat';
 
 type Props = {
     receiveData : browseResObj,
@@ -32,7 +29,6 @@ type Props = {
     totalToPay : number,
     applyOrder : () => void,
     depositAmount : number
-    /*calTotalPrice : () => void*/
 }
 
 type MakeAppNavProp = StackNavigationProp<AllScreenStackParamList>;
@@ -40,26 +36,13 @@ type MakeAppNavProp = StackNavigationProp<AllScreenStackParamList>;
 export const MakeAppView = React.memo<Props>((props) =>
 {
     const navigation = useNavigation<MakeAppNavProp>();
-
-    const numberFormat = (value : number) =>
-    {
-        if(value !== null)
-        {
-            const re = '\\d(?=(\\d{' + 3 + '})+' + '\\D' + ')';
-            // @ts-ignore
-            const num = value.toFixed(Math.max(0, ~~2));
-            const str = num.replace(new RegExp(re, 'g'), '$&' + ',');
-            return str;
-        }
-        else
-        {
-            return "0.00";
-        }
-    }
+    const makeAppString = Strings.makeApp;
 
     return(
         <SafeAreaView style={styles.makeAppMainCont}>
-            <BackBtnHeader backBtnVisible={true} title={"Make an Application"}/>
+            <BackBtnHeader
+                backBtnVisible={true}
+                title={makeAppString.makeAppHeaderTxt}/>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
@@ -80,9 +63,7 @@ export const MakeAppView = React.memo<Props>((props) =>
                             <TouchableOpacity
                                 activeOpacity={0.6}
                                 style={styles.makeAppMinusIcon}
-                                onPress={() => {
-                                    props.subtractUnits();
-                                }}>
+                                onPress={() => {props.subtractUnits();}}>
                                 <LessIcon/>
                             </TouchableOpacity>
                             <View style={styles.makeAppAddTxtCont}>
@@ -104,29 +85,29 @@ export const MakeAppView = React.memo<Props>((props) =>
                     <View style={styles.makeAppDetailTxtCont}>
                         <AppText
                             style={styles.makeAppDetailTxt}
-                            text={Strings.makeApp.makeAppDetailTxt}/>
+                            text={makeAppString.makeAppDetailTxt}/>
                     </View>
                     <View style={styles.makeAppCont1}>
                         <View>
                             <MakeAppCard
-                                title={Strings.makeApp.makeAppSalePriceTxt}
-                                price={numberFormat(props.receiveData.unit_cost)}
+                                title={makeAppString.makeAppSalePriceTxt}
+                                price={NumberFormat.numberFormat(props.receiveData.unit_cost)}
                                 currencyVisible={true}
                                 priceStyle={styles.makeAppPriceStyle1}
                                 priceCurrencyStyle={styles.makeAppPriceCurrencyTxt}/>
                         </View>
                         <View style={{marginTop:10}}>
                             <MakeAppCard
-                                title={Strings.makeApp.makeAppDepositAmountTxt}
-                                price={numberFormat(props.depositAmount)}
+                                title={makeAppString.makeAppDepositAmountTxt}
+                                price={NumberFormat.numberFormat(props.depositAmount)}
                                 currencyVisible={true}
                                 priceStyle={styles.makeAppPriceStyle1}
                                 priceCurrencyStyle={styles.makeAppPriceCurrencyTxt}/>
                         </View>
                         <View style={{marginTop:10}}>
                             <MakeAppCard
-                                title={Strings.makeApp.makeAppInstallPriceTxt}
-                                price={numberFormat(props.installAmount)}
+                                title={makeAppString.makeAppInstallPriceTxt}
+                                price={NumberFormat.numberFormat(props.installAmount)}
                                 currencyVisible={true}
                                 priceStyle={styles.makeAppPriceStyle1}
                                 priceCurrencyStyle={styles.makeAppPriceCurrencyTxt}/>
@@ -144,7 +125,7 @@ export const MakeAppView = React.memo<Props>((props) =>
                         </View>
                         <View style={{marginTop:15}}>
                             <MakeAppCard
-                                title={Strings.makeApp.makeAppNoOfInstallmentTxt}
+                                title={makeAppString.makeAppNoOfInstallmentTxt}
                                 price={props.receiveData.installment.toString()}
                                 currencyVisible={false}
                                 priceStyle={styles.makeAppPriceStyle2}
@@ -154,7 +135,7 @@ export const MakeAppView = React.memo<Props>((props) =>
                             <View style={{flex:1}}>
                                 <AppText
                                     style={styles.makeAppIntervalTitleTxt}
-                                    text={Strings.makeApp.makeAppPaymentIntervalTxt}/>
+                                    text={makeAppString.makeAppPaymentIntervalTxt}/>
                             </View>
                             <View style={styles.makeAppIntervalPriceTxtCont}>
                                 <AppText
@@ -166,15 +147,15 @@ export const MakeAppView = React.memo<Props>((props) =>
                     <ViewLine style={{marginTop:20,height:2}}/>
                     <View style={{paddingTop:15}}>
                         <MakeAppCard
-                            title={Strings.makeApp.makeAppTotalPayTxt}
-                            price={numberFormat(props.totalToPay)}
+                            title={makeAppString.makeAppTotalPayTxt}
+                            price={NumberFormat.numberFormat(props.totalToPay)}
                             currencyVisible={true}
                             priceStyle={styles.makeAppTotalPayTxt}
                             priceCurrencyStyle={styles.makeAppTotalCurTxt}/>
                     </View>
                     <View style={styles.makeAppBtnCont}>
                         <AppButton
-                            text={Strings.makeApp.makeAppBtnTxt}
+                            text={makeAppString.makeAppBtnTxt}
                             onPress={() => props.applyOrder()}/>
                     </View>
                 </View>

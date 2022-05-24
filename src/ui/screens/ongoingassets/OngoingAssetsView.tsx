@@ -4,7 +4,6 @@ import colors from '../../../config/colors';
 import {BackBtnHeader} from '../../components/headers/BackBtnHeader';
 import {OnGoingAssetsItem} from './OnGoingAssetsItem';
 import Strings from '../../../config/strings';
-import {OnGoingAssetListHeader} from './OnGoingAssetListHeader';
 import {myAssetObj} from '../../../models/api_response/MyAssetsResModel';
 import {onGoingAssetObj} from '../../../models/api_response/OngoingAssetResModel';
 import {ProgressBar} from '../../components/ProgressBar';
@@ -13,6 +12,7 @@ import {AppText} from '../../components/AppText';
 import {PriceTxt} from '../../components/PriceTxt';
 import {ViewLine} from '../../components/ViewLine';
 import {GILROY} from '../../../config';
+import NumberFormat from '../../../utils/NumberFormat';
 
 type Props = {
     onGoingAssetListData : onGoingAssetObj[],
@@ -26,24 +26,6 @@ export const OngoingAssetsView = React.memo<Props>((props) =>
     const onGoingListHeadData = props.onGoingAssetData ;
     const onGoingListHeadString = Strings.onGoingAsset ;
 
-    const numberFormat = (value : number) =>
-    {
-        if(value !== null)
-        {
-            const re = '\\d(?=(\\d{' + 3 + '})+' + '\\D' + ')';
-            // @ts-ignore
-            const num = value.toFixed(Math.max(0, ~~2));
-            const str = num.replace(new RegExp(re, 'g'), '$&' + ',');
-            return str;
-        }
-        else
-        {
-            return "0.00";
-        }
-
-    }
-
-
     return(
         <SafeAreaView style={styles.onGoingAssetMainCont}>
             <BackBtnHeader
@@ -52,19 +34,19 @@ export const OngoingAssetsView = React.memo<Props>((props) =>
             <View style={styles.onGoingAssetSubCont}>
                 <View>
                     <View style={styles.onGoingListHeadCont}>
-                        <View style={{justifyContent:'center',alignItems:'center'}}>
+                        <View style={styles.onGoingListHeadOutStandingTxt}>
                             <AppText
                                 style={styles.onGoingListHeadTxt}
                                 text={onGoingListHeadString.onGoingAssetCardTxt}/>
                         </View>
                         <View style={styles.onGoingListHeadPriceTxtCont}>
                             <PriceTxt
-                                priceTxt={numberFormat(onGoingListHeadData?.amount === null ? 0 : onGoingListHeadData?.amount)}
+                                priceTxt={NumberFormat.numberFormat(onGoingListHeadData?.amount === null ? 0 : onGoingListHeadData?.amount)}
                                 currencyVisible={true}
                                 priceStyle={styles.onGoingListHeadPriceTxt}
                                 currencyStyle={styles.onGoingListHeadCurrencyTxt}/>
                         </View>
-                        <View style={{marginTop:5,flexDirection:'row',marginEnd:15,marginStart:15,justifyContent:'flex-end'}}>
+                        <View style={styles.ongoingListHeadPaymentLeft}>
                             <AppText
                                 style={styles.onGoingListHeadPaymentTxt}
                                 text={onGoingListHeadData?.payments_left === null ? onGoingListHeadString.onGoingAssetPaymentLeft + " : " + "0" : onGoingListHeadString.onGoingAssetPaymentLeft + " : " + onGoingListHeadData?.payments_left}/>
@@ -89,7 +71,6 @@ export const OngoingAssetsView = React.memo<Props>((props) =>
                 {props.onGoingAssetListData.length > 0 ?
                     <FlatList
                         data={props.onGoingAssetListData}
-                        /*ListHeaderComponent={() => <OnGoingAssetListHeader onGoingAssetData={props.onGoingAssetData}/>}*/
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({item, index}) => <OnGoingAssetsItem index={index} length={props.onGoingAssetListData.length} item={item}/>}
@@ -124,6 +105,10 @@ const styles = StyleSheet.create({
         fontSize:16,
         color:colors.white,
     },
+    onGoingListHeadOutStandingTxt : {
+        justifyContent:'center',
+        alignItems:'center'
+    },
     onGoingListHeadPriceTxtCont : {
         marginTop:3,
         marginStart:15,
@@ -131,6 +116,13 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:'center',
         alignItems:'center'
+    },
+    ongoingListHeadPaymentLeft : {
+        marginTop:5,
+        flexDirection:'row',
+        marginEnd:15,
+        marginStart:15,
+        justifyContent:'flex-end'
     },
     onGoingListHeadCurrencyTxt : {
         fontWeight:'600',
