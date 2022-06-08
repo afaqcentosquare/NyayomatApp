@@ -18,9 +18,7 @@ The file directory is as follows:
 
 - src
 
-- LICENSE
 
-- README.md
 
 The code base includes both the design and api call outs. As such, the unit tests shall primarliy be based on api's and their web interaction. 
 
