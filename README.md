@@ -22,7 +22,7 @@ The file directory is as follows:
 
 - README.md
 
-The code base includes both the design and api call outs. As such, the unit tests shall primarliy be based on api's and their web ineraction. 
+The code base includes both the design and api call outs. As such, the unit tests shall primarliy be based on api's and their web interaction. 
 
 To perform unit tests, 
 
